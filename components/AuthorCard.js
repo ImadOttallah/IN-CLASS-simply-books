@@ -1,35 +1,40 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import { deleteSingleAuthor } from '../api/authorData';
+// import Link from 'next/link';
 
-export default function AuthorCard({
-  email, firebaseKey, firstName, lastName, favorite, image,
-}) {
+export default function AuthorCard({ authorObj, onUpdate }) {
+  const deleteThisAuthor = () => {
+    if (window.confirm(`Delete ${authorObj.first_name}?`)) {
+      deleteSingleAuthor(authorObj.firebaseKey).then(() => onUpdate());
+    }
+  };
   return (
     <>
-      <div>email: {email}</div>
-      <div>firebaseKey: {firebaseKey}</div>
-      <div>firstName: {firstName}</div>
-      <div>lastName: {lastName}</div>
-      <div>favorite: {favorite}</div>
-      <img src={image} alt={firstName} />
+      <Card style={{ width: '18rem', margin: '10px' }}>
+        <div>email: {authorObj.email}</div>
+        <div>firebaseKey: {authorObj.firebaseKey}</div>
+        <div>firstName: {authorObj.first_name}</div>
+        <div>lastName: {authorObj.last_name}</div>
+        <div>favorite: {authorObj.favorite}</div>
+        <Button variant="danger" onClick={deleteThisAuthor} className="m-2">
+          DELETE
+        </Button>
+      </Card>
     </>
   );
 }
 
 AuthorCard.propTypes = {
-  email: PropTypes.string,
-  firebaseKey: PropTypes.string,
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
-  favorite: PropTypes.bool,
-  image: PropTypes.string,
-};
-AuthorCard.defaultProps = {
-  email: 'imadotta@gmail.com',
-  firstName: 'Imad',
-  lastName: 'Ottallah',
-  favorite: true,
-  image: 'https://www.princeton.edu/sites/default/files/styles/scale_1440/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=lA8UuoHt',
-  firebaseKey: PropTypes.string,
+  authorObj: PropTypes.shape({
+    email: PropTypes.string,
+    firebaseKey: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    favorite: PropTypes.bool,
+  }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
