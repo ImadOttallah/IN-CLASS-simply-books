@@ -8,7 +8,6 @@ import { useAuth } from '../../utils/context/authContext';
 import { getAuthors } from '../../api/authorData';
 import { createBook, updateBook } from '../../api/bookData';
 
-// used for defaut values in form
 const initialState = {
   description: '',
   image: '',
@@ -49,41 +48,18 @@ function BookForm({ obj }) {
       });
     }
   };
-  // add onSubmit anytime you use forms
+
   return (
     <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Book</h2>
-      {/* Title Input */}
       <FloatingLabel controlId="floatingInput1" label="Book Title" className="mb-3">
-        <Form.Control
-          type="text"
-          placeholder="Enter a title"
-          name="title"
-          value={formInput.title}
-          onChange={handleChange}
-          required
-        />
+        <Form.Control type="text" placeholder="Enter a title" name="title" value={formInput.title} onChange={handleChange} required />
       </FloatingLabel>
-      {/* Image Input */}
       <FloatingLabel controlId="floatingInput2" label="Book Image" className="mb-3">
-        <Form.Control
-          type="url"
-          placeholder="Enter an image url"
-          name="image"
-          value={formInput.image}
-          onChange={handleChange}
-          required
-        />
+        <Form.Control type="url" placeholder="Enter an image url" name="image" value={formInput.image} onChange={handleChange} required />
       </FloatingLabel>
       <FloatingLabel controlId="floatingInput3" label="Book Price" className="mb-3">
-        <Form.Control
-          type="text"
-          placeholder="Enter price"
-          name="price"
-          value={formInput.price}
-          onChange={handleChange}
-          required
-        />
+        <Form.Control type="text" placeholder="Enter price" name="price" value={formInput.price} onChange={handleChange} required />
       </FloatingLabel>
 
       <FloatingLabel controlId="floatingSelect" label="Author">
@@ -100,7 +76,7 @@ function BookForm({ obj }) {
               <option
                 key={author.firebaseKey}
                 value={author.firebaseKey}
-                selected={obj.author_id === author.firebaseKey}
+                defaultValue={obj.author_id === author.firebaseKey}
               >
                 {author.first_name} {author.last_name}
               </option>
@@ -110,15 +86,7 @@ function BookForm({ obj }) {
       </FloatingLabel>
 
       <FloatingLabel controlId="floatingTextarea" label="Description" className="mb-3">
-        <Form.Control
-          as="textarea"
-          placeholder="Description"
-          style={{ height: '100px' }}
-          name="description"
-          value={formInput.description}
-          onChange={handleChange}
-          required
-        />
+        <Form.Control as="textarea" placeholder="Description" style={{ height: '100px' }} name="description" value={formInput.description} onChange={handleChange} required />
       </FloatingLabel>
 
       {/* A WAY TO HANDLE UPDATES FOR TOGGLES, RADIOS, ETC  */}

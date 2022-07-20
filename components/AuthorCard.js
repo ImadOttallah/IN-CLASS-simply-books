@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Link from 'next/link';
 import { deleteAuthorBooks } from '../api/mergedData';
 // import Link from 'next/link';
 
@@ -19,6 +20,9 @@ export default function AuthorCard({ authorObj, onUpdate }) {
         <div>firstName: {authorObj.first_name}</div>
         <div>lastName: {authorObj.last_name}</div>
         <div>favorite: {authorObj.favorite}</div>
+        <Link href={`/author/edit/${authorObj.firebaseKey}`} passHref>
+          <Button variant="info">EDIT</Button>
+        </Link>
         <Button variant="danger" onClick={deleteThisAuthor} className="m-2">
           DELETE
         </Button>
