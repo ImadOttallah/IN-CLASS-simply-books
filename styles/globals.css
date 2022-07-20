@@ -1,8 +1,8 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 
 body {
-  background-color: hsl(0, 0%, 100%);
-  color: black;
+  background-color: hsl(0, 100%, 0%);
+  color: rgb(1, 1, 1);
 }
 
 .profile-img {
